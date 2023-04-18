@@ -3,7 +3,7 @@ import AVFAudio
 import AVFoundation
 
 struct ContentView: View {
-    var curPlayer: Player = Player(hp: 3, points: 0)
+    @StateObject var curPlayer: Player = Player(hp: 3, points: 0)
     var curNote: Note = Note(notep: "C2")
     var body: some View {
         GeometryReader{ geometry in
@@ -12,17 +12,22 @@ struct ContentView: View {
                     .resizable()
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                     .opacity(0.7)
-                PlayerView()
-                    .environmentObject(curPlayer)
-                    .environmentObject(curNote)
-                SheetView()
-                    .environmentObject(curPlayer)
-                    .environmentObject(curNote)
-                PianoKeysView()
-                    .environmentObject(curPlayer)
-                    .environmentObject(curNote)
-                
-                
+                //fazer com uma navigation?? não precisa, stateobject la em cima salvou
+                if(curPlayer.start == false){
+                    MenuView()
+                        .environmentObject(curPlayer)
+                }
+                else{
+                    PlayerView()
+                        .environmentObject(curPlayer)
+                        .environmentObject(curNote)
+                    SheetView()
+                        .environmentObject(curPlayer)
+                        .environmentObject(curNote)
+                    PianoKeysView()
+                        .environmentObject(curPlayer)
+                        .environmentObject(curNote)
+                }
                 
             }
         }

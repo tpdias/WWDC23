@@ -53,7 +53,7 @@ struct PianoKeysView: View {
                 ) { index in 
                     
                     ZStack(alignment: .topTrailing) {
-                        Button(action: {whiteKeyPress(index: index, y: (geometry.frame(in: .global).maxY))}, label: {
+                        Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
                             Rectangle()
                                 .fill(.white)
                                 .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
@@ -62,7 +62,7 @@ struct PianoKeysView: View {
                         if index == 2 || index == 6 || index == 9 || index == 13 || index == 14{
                             EmptyView()
                         } else {
-                            Button(action: {blackKeyPress(index: index, y: (geometry.frame(in: .global).maxY))}, label: {
+                            Button(action: {blackKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
                                 Rectangle()
                                     .fill(.black)
                                     .frame(width: UIScreen.main.bounds.width * 0.022, height: UIScreen.main.bounds.height * 0.15)

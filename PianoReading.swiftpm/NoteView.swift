@@ -39,7 +39,7 @@ class Note: ObservableObject {
             self.isFlat = false
         }
         self.note = notesArray[randomIndex]
-        self.positionY = CGFloat((randomIndex)) * y/40 + CGFloat((randomIndex)) * y/85
+        self.positionY = CGFloat((randomIndex)) * y/42 + CGFloat((randomIndex)) * y/800
         
     }
 }
@@ -47,11 +47,9 @@ class Note: ObservableObject {
 struct NoteView: View {
     @EnvironmentObject var curNote: Note
     var body: some View {
-        GeometryReader{ geometry in
             Ellipse()
                 .stroke(lineWidth: 3.0)
                 .foregroundColor(.black)
-        }
 
     }
 }

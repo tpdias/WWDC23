@@ -3,18 +3,28 @@ import SwiftUI
 class Player: ObservableObject {
     @Published var hp: Int = 3
     @Published var points: Int = 0
+    @Published var start: Bool = false
     init(hp: Int, points: Int) {
         self.hp = hp
         self.points = points
     }
-     func addPoints() {
+    func addPoints() {
         self.points += 5
     }
-     func missNote() {
+    func missNote() {
         self.hp -= 1
+        self.checkGameOver()
+    }
+    func checkGameOver(){
+        if(self.hp < 1){
+            self.start = false
+        }
     }
     func getHp() -> Int {
         return self.hp
+    }
+    func startGame(){
+        self.start = true
     }
 }
 
@@ -31,19 +41,19 @@ struct PlayerView: View {
                     .cornerRadius(10.0, antialiased: true)
                 Text("Life Points: " + String(curPlayer.hp))
                     .foregroundColor(.white)
-                    
+                
             }
-                .position(x: geometry.frame(in: .global).maxX/1.1, y: geometry.frame(in: .global).maxY/25)
+            .position(x: geometry.frame(in: .global).maxX/1.1, y: geometry.frame(in: .global).maxY/25)
             ZStack{
                 Rectangle()
                     .frame(width: 110, height: 50, alignment: .center)
                     .foregroundColor(.blue)
                     .border(Color.black, width: 1)
                     .cornerRadius(10.0, antialiased: true)
-
+                
                 Text("Points: " + String(curPlayer.points))
             }
-                .position(x: geometry.frame(in: .global).maxX/15, y: geometry.frame(in: .global).maxY/25)
+            .position(x: geometry.frame(in: .global).maxX/15, y: geometry.frame(in: .global).maxY/25)
         }
     }
 }
