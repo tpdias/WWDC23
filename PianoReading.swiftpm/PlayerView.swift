@@ -4,6 +4,8 @@ class Player: ObservableObject {
     @Published var hp: Int = 3
     @Published var points: Int = 0
     @Published var start: Bool = false
+    @Published var tutorial: Bool = false
+
     init(hp: Int, points: Int) {
         self.hp = hp
         self.points = points
@@ -25,6 +27,13 @@ class Player: ObservableObject {
     }
     func startGame(){
         self.start = true
+        self.hp = 3
+        self.tutorial = false
+    }
+    func startTutorial(){
+        self.start = true
+        self.tutorial = true
+        self.hp = 1
     }
 }
 

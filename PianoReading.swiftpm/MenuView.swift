@@ -12,26 +12,12 @@ struct MenuView: View {
             Button(action: {curPlayer.startGame()}, label: {
                 ZStack{
                     Image(systemName: "play.circle")
-                           .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
-                           .frame(width: 100, height: 100, alignment: .center)
-                           .foregroundColor(.black)
-                }
-            })
-            Button(action: {}, label: {
-                ZStack{
-                    Rectangle()
-                        .frame(width: 200, height: 80, alignment: .center)
-                        .border(Color.black, width: 1)
-                        .cornerRadius(10.0, antialiased: true)
-                        .foregroundColor(.red)
-                        .opacity(0.8)
-                       
-                    Text("Tutorial")
-                        .font(.headline)
+                        .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+                        .frame(width: 100, height: 100, alignment: .center)
                         .foregroundColor(.black)
                 }
             })
-            Button(action: {}, label: {
+            Button(action: {curPlayer.startTutorial()}, label: {
                 ZStack{
                     Rectangle()
                         .frame(width: 200, height: 80, alignment: .center)
@@ -40,15 +26,15 @@ struct MenuView: View {
                         .foregroundColor(.red)
                         .opacity(0.8)
                     
-                    Text("Credits")
+                    Text("Tutorial")
                         .font(.headline)
                         .foregroundColor(.black)
                 }
             })
-            
+            }
         }
     }
-}
+
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {

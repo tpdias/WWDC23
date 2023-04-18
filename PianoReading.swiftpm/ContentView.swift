@@ -7,28 +7,30 @@ struct ContentView: View {
     var curNote: Note = Note(notep: "C2")
     var body: some View {
         GeometryReader{ geometry in
-            ZStack(alignment: .center) {
-                Image("Background")
-                    .resizable()
-                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                    .opacity(0.7)
-                //fazer com uma navigation?? não precisa, stateobject la em cima salvou
-                if(curPlayer.start == false){
-                    MenuView()
-                        .environmentObject(curPlayer)
+            NavigationStack{
+                ZStack(alignment: .center) {
+                    Image("Background")
+                        .resizable()
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                        .opacity(0.7)
+                    //fazer com uma navigation?? não precisa, stateobject la em cima salvou
+                    if(curPlayer.start == false){
+                        MenuView()
+                            .environmentObject(curPlayer)
+                    }
+                    else{
+                        PlayerView()
+                            .environmentObject(curPlayer)
+                            .environmentObject(curNote)
+                        SheetView()
+                            .environmentObject(curPlayer)
+                            .environmentObject(curNote)
+                        PianoKeysView()
+                            .environmentObject(curPlayer)
+                            .environmentObject(curNote)
+                    }
+                    
                 }
-                else{
-                    PlayerView()
-                        .environmentObject(curPlayer)
-                        .environmentObject(curNote)
-                    SheetView()
-                        .environmentObject(curPlayer)
-                        .environmentObject(curNote)
-                    PianoKeysView()
-                        .environmentObject(curPlayer)
-                        .environmentObject(curNote)
-                }
-                
             }
         }
     }

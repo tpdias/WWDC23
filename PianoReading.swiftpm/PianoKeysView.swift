@@ -37,8 +37,6 @@ public class SoundManager{
 
 
 struct PianoKeysView: View {
-    
-   
     @EnvironmentObject var curPlayer: Player
     @EnvironmentObject var curNote: Note
     var body: some View {
@@ -53,11 +51,21 @@ struct PianoKeysView: View {
                 ) { index in 
                     
                     ZStack(alignment: .topTrailing) {
-                        Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
-                            Rectangle()
-                                .fill(.white)
-                                .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
-                        })
+                        if(notesArray[index] == curNote.note && curPlayer.tutorial == true){
+                            Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                Rectangle()
+                                    .fill(.blue)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
+                                    .opacity(0.8)
+                            })
+                        }
+                        else{
+                            Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                Rectangle()
+                                    .fill(.white)
+                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
+                            })
+                        }
                         
                         if index == 2 || index == 6 || index == 9 || index == 13 || index == 14{
                             EmptyView()
