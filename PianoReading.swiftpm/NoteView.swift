@@ -17,7 +17,7 @@ class Note: ObservableObject {
         self.positionX = 0
         self.isFlat = false
         self.positionY = 0
-        self.speed = 2
+        self.speed = 1
         self.reseting = 1
     }
     func collision(){
@@ -46,11 +46,17 @@ class Note: ObservableObject {
 
 struct NoteView: View {
     @EnvironmentObject var curNote: Note
+    @EnvironmentObject var curPlayer: Player
     var body: some View {
+        ZStack{
             Ellipse()
                 .stroke(lineWidth: 3.0)
                 .foregroundColor(.black)
-
+            if(curPlayer.tutorial == true){
+                Text(curNote.note.dropLast(1))
+                    .foregroundColor(.black)
+            }
+        }
     }
 }
 

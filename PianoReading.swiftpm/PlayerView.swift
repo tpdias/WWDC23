@@ -5,7 +5,7 @@ class Player: ObservableObject {
     @Published var points: Int = 0
     @Published var start: Bool = false
     @Published var tutorial: Bool = false
-
+    
     init(hp: Int, points: Int) {
         self.hp = hp
         self.points = points
@@ -29,11 +29,19 @@ class Player: ObservableObject {
         self.start = true
         self.hp = 3
         self.tutorial = false
+        self.points = 0
     }
     func startTutorial(){
         self.start = true
         self.tutorial = true
-        self.hp = 1
+        self.points = 0
+        self.hp = 3
+    }
+    func endGame(){
+        self.tutorial = false
+        self.start = false
+        self.points = 0
+        self.hp = 3
     }
 }
 
@@ -52,7 +60,22 @@ struct PlayerView: View {
                     .foregroundColor(.white)
                 
             }
-            .position(x: geometry.frame(in: .global).maxX/1.1, y: geometry.frame(in: .global).maxY/25)
+            .position(x: geometry.frame(in: .global).maxX/1.1, y: geometry.frame(in: .global).maxY/35)
+            
+            Button(action: {curPlayer.endGame()}, label: {
+                ZStack{
+                    Rectangle()
+                        .frame(width: 130, height: 50, alignment: .center)
+                        .foregroundColor(.blue)
+                        .border(Color.black, width: 1)
+                        .cornerRadius(10.0, antialiased: true)
+                    
+                    Text("Back to Menu")
+                     .foregroundColor(.white)                
+                    
+                }
+            })
+            .position(x: geometry.frame(in: .global).maxX/2, y: geometry.frame(in: .global).maxY/35)
             ZStack{
                 Rectangle()
                     .frame(width: 110, height: 50, alignment: .center)
@@ -62,8 +85,9 @@ struct PlayerView: View {
                 
                 Text("Points: " + String(curPlayer.points))
             }
-            .position(x: geometry.frame(in: .global).maxX/15, y: geometry.frame(in: .global).maxY/25)
+            .position(x: geometry.frame(in: .global).maxX/15, y: geometry.frame(in: .global).maxY/35)
         }
+        
     }
 }
 

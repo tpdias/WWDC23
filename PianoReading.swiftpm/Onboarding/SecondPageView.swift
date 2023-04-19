@@ -6,11 +6,15 @@ struct SecondPageView: View {
             Color.white
             VStack{
                 
+                Image("howToRead")
+                    .resizable()
+                    .frame(width: 800, height: 300, alignment: .center)
                 Text("How to read the piano sheet")
                     .font(.largeTitle)
                     .padding(20)
                 
-                Text("Start by locating the clef's, on the left side of the sheet, it shows where the clef note is, just like the image shows, the trable clef is used usualy on the top and locates the G, sheet and the base clef on the bottom sheet and it locates the F note. The notes are ordened from the bottom to the top.")
+                Text("Start by locating the two clefs on the left side of the sheet, they show where the clef specific note is, just like the image shows, the trable clef is used usualy on the top and locates the G note, and the base clef on the bottom and it locates the F note. The notes are ordened from the bottom to the top, so you can count up alphabetically to find every note.")
+                    .frame(width: 900, height: 200, alignment: .center)
                     .bold()
                     .padding(20)
                 Button(action: {}, label: {

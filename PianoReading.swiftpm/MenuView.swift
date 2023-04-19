@@ -11,9 +11,19 @@ struct MenuView: View {
                 .shadow(color: .red, radius: 10, x: 0.0, y: 0.0)
             Button(action: {curPlayer.startGame()}, label: {
                 ZStack{
-                    Image(systemName: "play.circle")
-                        .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
-                        .frame(width: 100, height: 100, alignment: .center)
+//                    Image(systemName: "play.circle")
+//                        .resizable(capInsets: EdgeInsets(), resizingMode: .stretch)
+//                        .frame(width: 100, height: 100, alignment: .center)
+//                        .foregroundColor(.black)
+                    Rectangle()
+                        .frame(width: 200, height: 80, alignment: .center)
+                        .border(Color.black, width: 1)
+                        .cornerRadius(10.0, antialiased: true)
+                        .foregroundColor(.red)
+                        .saturation(0.8)
+                    
+                    Text("Normal Mode")
+                        .font(.headline)
                         .foregroundColor(.black)
                 }
             })
@@ -24,9 +34,9 @@ struct MenuView: View {
                         .border(Color.black, width: 1)
                         .cornerRadius(10.0, antialiased: true)
                         .foregroundColor(.red)
-                        .opacity(0.8)
+                        .saturation(0.8)
                     
-                    Text("Tutorial")
+                    Text("Tutorial Mode")
                         .font(.headline)
                         .foregroundColor(.black)
                 }

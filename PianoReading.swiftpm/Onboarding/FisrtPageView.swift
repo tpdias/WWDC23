@@ -11,7 +11,7 @@ struct FirstPageView: View {
                     .font(.largeTitle)
                     .padding(20)
                 
-                Text("This app is based on Guitar Hero, but played with real piano sheet's, the notes will apear on the sheet and you need to play the correct note before it get's to the end.")
+                Text("This app is based on Guitar Hero, but played with a real piano sheet, the notes will apear on the sheet and you need to play the correct note in the keyboard before it get's to the end.")
                     .bold()
                     .padding(20)
                 Button(action: {}, label: {

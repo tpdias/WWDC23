@@ -27,13 +27,13 @@ struct SheetView: View {
                         if(index == 5 || index == 6) {
                             Rectangle()
                                 .opacity(0.5)
-                                .frame(width: UIScreen.main.bounds.width*2, height: UIScreen.main.bounds.height/20)
+                                .frame(width: UIScreen.main.bounds.width*3.5, height: UIScreen.main.bounds.height/20)
                                 .border(Color.black, width: 1)
                         }
                         else {
                             Rectangle()
                                 .fill(.white)
-                                .frame(width: UIScreen.main.bounds.width*2, height: UIScreen.main.bounds.height/20)
+                                .frame(width: UIScreen.main.bounds.width*3.5, height: UIScreen.main.bounds.height/20)
                                 .border(Color.black, width: 1)
                         }
                     }
@@ -53,6 +53,8 @@ struct SheetView: View {
             //Notes
             HStack{
                 NoteView()
+                    .environmentObject(curPlayer)
+                    .environmentObject(curNote)
                     .position(x: geometry.size.width + geometry.size.width*0.1, y: UIScreen.main.bounds.height/1.97)
                     .frame(width: UIScreen.main.bounds.width/26, height: UIScreen.main.bounds.height/25, alignment: .center)
                     .opacity(curNote.reseting)
@@ -60,7 +62,7 @@ struct SheetView: View {
             }
             .onReceive(timer) { (_) in
                 curNote.reseting = 1
-                curNote.positionX -= 1 * curNote.speed
+                curNote.positionX -= 1 * geometry.size.width * 0.0015
                 let curOffset = CGSize(
                     width: curNote.positionX,
                     height: -curNote.positionY

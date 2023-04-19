@@ -52,19 +52,29 @@ struct PianoKeysView: View {
                     
                     ZStack(alignment: .topTrailing) {
                         if(notesArray[index] == curNote.note && curPlayer.tutorial == true){
-                            Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
-                                Rectangle()
-                                    .fill(.blue)
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
-                                    .opacity(0.8)
-                            })
+                            ZStack{
+                                Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                    Rectangle()
+                                        .fill(.blue)
+                                        .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
+                                        .shadow(color: .blue, radius: 10, x: 0, y: 0)
+                                })
+                                Text(notesArray[index].dropLast(1))
+                                    .foregroundColor(.black)
+                                    .position(x: 40, y: 180)
+                            }
                         }
                         else{
-                            Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
-                                Rectangle()
-                                    .fill(.white)
-                                    .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
-                            })
+                                Button(action: {whiteKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                    Rectangle()
+                                        .fill(.white)
+                                        .frame(width: UIScreen.main.bounds.width * 0.05, height: UIScreen.main.bounds.height * 0.3)
+                                })
+                                if(curPlayer.tutorial == true){
+                                    Text(notesArray[index].dropLast(1))
+                                        .foregroundColor(.black)
+                                        .position(x: 40.0, y: 200.0)
+                                }
                         }
                         
                         if index == 2 || index == 6 || index == 9 || index == 13 || index == 14{
@@ -75,6 +85,9 @@ struct PianoKeysView: View {
                                     .fill(.black)
                                     .frame(width: UIScreen.main.bounds.width * 0.022, height: UIScreen.main.bounds.height * 0.15)
                             })
+                            if(curPlayer.tutorial == true){
+                                Text(bNotesArray[index].dropLast(1))
+                            }
                         }
                     }
                     
