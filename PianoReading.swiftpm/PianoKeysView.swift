@@ -10,6 +10,7 @@ struct Key{
         sound.playNoteSound(self.name)
     }
 }
+//instatiating the variables
 let keys: [Key] = [Key(name: "C2"),Key(name:"D2"),Key(name: "E2"),Key(name:"F2"),Key(name: "G2"),Key(name: "A2"),Key(name: "B2"), Key(name: "C3"),Key(name:"D3"),Key(name: "E3"),Key(name:"F3"),Key(name: "G3"),Key(name: "A3"),Key(name: "B3"), Key(name: "C4")]
 let bkeys: [Key] = [Key(name: "Db2"),Key(name:"Eb2"),Key(name: "Gb2"),Key(name:"Gb2"),Key(name: "Ab2"),Key(name: "Bb2"),Key(name: "Db3"), Key(name: "Db3"),Key(name:"Eb3"),Key(name: "Fb3"),Key(name:"Gb3"),Key(name: "Ab3"),Key(name: "Bb3"),Key(name: "Bb3"), Key(name: "Bb4")]
 
@@ -20,7 +21,7 @@ public class SoundManager{
     
      var player: AVAudioPlayer?
      var playerBackground: AVAudioPlayer?
-        
+    //Play sound
     func playNoteSound(_ name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else { return  }
         do {
@@ -37,6 +38,7 @@ public class SoundManager{
 
 
 struct PianoKeysView: View {
+    //App variables
     @EnvironmentObject var curPlayer: Player
     @EnvironmentObject var curNote: Note
     var body: some View {
@@ -80,12 +82,23 @@ struct PianoKeysView: View {
                         if index == 2 || index == 6 || index == 9 || index == 13 || index == 14{
                             EmptyView()
                         } else {
-                            Button(action: {blackKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
-                                Rectangle()
-                                    .fill(.black)
-                                    .frame(width: UIScreen.main.bounds.width * 0.022, height: UIScreen.main.bounds.height * 0.15)
-                            })
-                            if(curPlayer.tutorial == true){
+                            //aqui fazer o if do tutorial
+                            if(curPlayer.tutorial && curNote.note == bNotesArray[index ]){
+                                Button(action: {blackKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                    Rectangle()
+                                        .fill(.blue)
+                                        .frame(width: UIScreen.main.bounds.width * 0.022, height: UIScreen.main.bounds.height * 0.15)
+                                        .shadow(color: .blue, radius: 10, x: 0.0, y: 0.0)
+                                })
+                            }
+                            else{
+                                Button(action: {blackKeyPress(index: index, y: (UIScreen.main.bounds.height))}, label: {
+                                    Rectangle()
+                                        .fill(.black)
+                                        .frame(width: UIScreen.main.bounds.width * 0.022, height: UIScreen.main.bounds.height * 0.15)
+                                })
+                            }
+                            if(curPlayer.tutorial){
                                 Text(bNotesArray[index].dropLast(1))
                             }
                         }
@@ -104,7 +117,7 @@ struct PianoKeysView: View {
         keys[index].playSound()
         if(notesArray[index] == curNote.note || bNotesArray[index] == curNote.note){
             curNote.collision()
-            curNote.changeNote(y: y)
+            curNote.changeNote(y: y, curPlayer: curPlayer)
             curPlayer.addPoints()
         }
         else{
@@ -115,7 +128,7 @@ struct PianoKeysView: View {
         bkeys[index].playSound()
         if(notesArray[index] == curNote.note || bNotesArray[index] == curNote.note){
             curNote.collision()
-            curNote.changeNote(y: y)
+            curNote.changeNote(y: y, curPlayer: curPlayer)
             curPlayer.addPoints()
         }
         else{

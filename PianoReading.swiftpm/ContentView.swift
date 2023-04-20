@@ -3,7 +3,11 @@ import AVFAudio
 import AVFoundation
 
 struct ContentView: View {
+    //player information
     @StateObject var curPlayer: Player = Player(hp: 3, points: 0)
+    //onboarding variable
+    @State var presentOnboarding: Bool = true
+    //note information
     var curNote: Note = Note(notep: "C2")
     var body: some View {
         GeometryReader{ geometry in
@@ -13,9 +17,8 @@ struct ContentView: View {
                         .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                         .opacity(0.7)
-                    //fazer com uma navigation?? não precisa, stateobject la em cima salvou
                     if(curPlayer.start == false){
-                        MenuView()
+                        MenuView(presentOnboarding: $presentOnboarding)
                             .environmentObject(curPlayer)
                     }
                     else{
@@ -31,6 +34,9 @@ struct ContentView: View {
                     }
                     
                 }
+            }
+            .fullScreenCover(isPresented: $presentOnboarding){
+                OnboardingView(present: $presentOnboarding)
             }
         }
     }

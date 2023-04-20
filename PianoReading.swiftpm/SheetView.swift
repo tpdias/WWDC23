@@ -7,24 +7,28 @@ struct SheetView: View {
     
     //Timer
     let timer = Timer.publish(
-        every: 0.01,       // Second
-        tolerance: 0.1, // Gives tolerance so that SwiftUI makes optimization
-        on: .main,      // Main Thread
-        in: .common     // Common Loop
+        every: 0.01,       
+        tolerance: 0.1, 
+        on: .main,     
+        in: .common     
     ).autoconnect()
-    
+    //Offset
     @State var offset: CGSize = .zero
+    //to hide the note when it resets
     @State var reseting: Double = 1
     
     var body: some View {
         
         GeometryReader { geometry in
             VStack(spacing: 0){
+                //Designing the Score rectangle by rectangle
                 ForEach(1...10,
                         id: \.self
                 ){ index in
+                    //white rectangles with border
                     ZStack(alignment: .bottomTrailing) {
                         if(index == 5 || index == 6) {
+                            //middle rectangles, less opacity
                             Rectangle()
                                 .opacity(0.5)
                                 .frame(width: UIScreen.main.bounds.width*3.5, height: UIScreen.main.bounds.height/20)
@@ -61,18 +65,22 @@ struct SheetView: View {
                     .offset(offset)
             }
             .onReceive(timer) { (_) in
-                curNote.reseting = 1
-                curNote.positionX -= 1 * geometry.size.width * 0.0015
+                //timer atualization
+                curNote.reseting = 1     //hide note on 0
+                curNote.positionX -= 1 * geometry.size.width * 0.0015 * curNote.speed // move note
+                //offset of the note
                 let curOffset = CGSize(
                     width: curNote.positionX,
                     height: -curNote.positionY
                 )
+                //show note if moves 200 units
                 if(curNote.positionX < -200){
                     curNote.reseting = 1
                 }
+                //if moves more then the screen width collide and change note
                 if(abs(curNote.positionX) > abs(geometry.size.width*1.1)){
                     curNote.collision()
-                    curNote.changeNote(y: (UIScreen.main.bounds.height))
+                    curNote.changeNote(y: (UIScreen.main.bounds.height), curPlayer: curPlayer)
                     curPlayer.missNote()
                 }
                 self.offset = curOffset

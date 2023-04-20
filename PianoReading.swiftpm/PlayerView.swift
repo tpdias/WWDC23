@@ -31,6 +31,7 @@ class Player: ObservableObject {
         self.tutorial = false
         self.points = 0
     }
+    //reset variables in case of restart of a game
     func startTutorial(){
         self.start = true
         self.tutorial = true
@@ -50,6 +51,7 @@ struct PlayerView: View {
     @EnvironmentObject var curPlayer: Player
     var body: some View {
         GeometryReader { geometry in
+            //Hp stats
             ZStack{
                 Rectangle()
                     .frame(width: 110, height: 50, alignment: .center)
@@ -61,7 +63,7 @@ struct PlayerView: View {
                 
             }
             .position(x: geometry.frame(in: .global).maxX/1.1, y: geometry.frame(in: .global).maxY/35)
-            
+            //Back to menu button
             Button(action: {curPlayer.endGame()}, label: {
                 ZStack{
                     Rectangle()
@@ -76,6 +78,7 @@ struct PlayerView: View {
                 }
             })
             .position(x: geometry.frame(in: .global).maxX/2, y: geometry.frame(in: .global).maxY/35)
+            //Points stats
             ZStack{
                 Rectangle()
                     .frame(width: 110, height: 50, alignment: .center)
